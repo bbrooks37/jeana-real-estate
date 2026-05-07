@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Bed, Bath, Square, MapPin, Mail, Phone, Clock, FileText, Award, ChevronRight } from 'lucide-react';
+import { Bed, Bath, Square, MapPin, Mail, Phone, Clock, FileText, Award, ChevronRight, Send } from 'lucide-react';
 
 const App = () => {
-  // Expense Tracking State (Internal)
+  // Expense Tracking State (Internal Operations)
   const [expenses, setExpenses] = useState([]);
   const [formData, setFormData] = useState({
     description: '',
@@ -23,7 +23,7 @@ const App = () => {
     cbrWebsite: "https://jeanataylor.sites.cbmoxi.com/"
   };
 
-  // Listings Data with actual photos from /public
+  // Property Listings Data
   const listings = [
     { 
       id: 1, 
@@ -74,7 +74,8 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 font-sans selection:bg-blue-100">
+    <div className="min-h-screen bg-gray-50 text-gray-800 font-sans selection:bg-blue-100 scroll-smooth">
+      
       {/* Navigation Bar */}
       <nav className="flex items-center justify-between px-6 py-4 border-b border-gray-200 sticky top-0 bg-white/80 backdrop-blur-md z-50 shadow-sm">
         <div className="text-xl font-bold text-blue-900 flex items-center gap-2">
@@ -83,9 +84,10 @@ const App = () => {
         </div>
         <div className="flex items-center gap-4">
           <ul className="hidden md:flex gap-8 font-semibold text-sm text-gray-500">
-            <li className="hover:text-blue-900 cursor-pointer transition-colors">About</li>
-            <li className="hover:text-blue-900 cursor-pointer transition-colors">Listings</li>
-            <li className="hover:text-blue-900 cursor-pointer transition-colors">Contact</li>
+            <li><a href="#about" className="hover:text-blue-900 transition-colors">About</a></li>
+            <li><a href="#listings" className="hover:text-blue-900 transition-colors">Listings</a></li>
+            <li><a href="#contact" className="hover:text-blue-900 transition-colors">Contact</a></li>
+            <li><a href="#portal" className="font-bold text-blue-800 hover:text-black transition-colors">Portal</a></li>
           </ul>
           <div className="flex items-center gap-3 pl-6 border-l border-gray-200">
             <div className="text-right hidden sm:block">
@@ -97,10 +99,10 @@ const App = () => {
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto px-4 py-12 space-y-20">
+      <main className="max-w-7xl mx-auto px-4 py-12 space-y-24">
         
-        {/* Profile / Bio Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
+        {/* About Section */}
+        <section id="about" className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center bg-white p-6 sm:p-10 rounded-[2.5rem] shadow-sm border border-gray-100">
           <div className="lg:col-span-5 relative group">
             <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-cyan-500 rounded-3xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
             <img src="/JH.jpg" alt="Jeana Headshot" className="relative rounded-3xl shadow-xl w-full max-h-137.5 object-cover" />
@@ -121,9 +123,9 @@ const App = () => {
               <p>Coldwell Banker is one of the most trusted names in real estate worldwide. When you work with me, you get my personal dedication backed by a brand that has succeeded for over a century.</p>
             </div>
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="bg-blue-900 text-white px-8 py-4 rounded-2xl font-black shadow-lg shadow-blue-900/20 hover:bg-black transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2">
+              <a href="#contact" className="bg-blue-900 text-white px-8 py-4 rounded-2xl font-black shadow-lg shadow-blue-900/20 hover:bg-black transition-all transform hover:-translate-y-1 active:scale-95 flex items-center gap-2">
                 Work With Me <ChevronRight size={18} />
-              </button>
+              </a>
               <a href={jeanaContact.cbrWebsite} target="_blank" rel="noopener noreferrer" className="bg-gray-50 text-gray-900 px-8 py-4 rounded-2xl font-bold hover:bg-gray-100 transition-all border border-gray-200 text-sm flex items-center gap-2">
                 Official Profile
               </a>
@@ -131,21 +133,19 @@ const App = () => {
           </div>
         </section>
 
-        {/* LISTINGS SECTION */}
-        <section>
+        {/* Listings Section */}
+        <section id="listings">
           <div className="flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
             <div>
               <span className="text-blue-700 font-black text-xs uppercase tracking-[0.3em]">Market Selection</span>
               <h2 className="text-4xl font-black text-gray-900 tracking-tight">Featured Listings</h2>
               <p className="text-gray-500 font-medium">Curated properties across Lakeland & Mulberry</p>
             </div>
-            <button className="text-sm font-bold text-blue-900 hover:underline flex items-center gap-1">View All Properties <ChevronRight size={16}/></button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {listings.map((listing) => (
               <div key={listing.id} className="group bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                {/* Image Container with Zoom Effect */}
                 <div className="h-64 relative overflow-hidden">
                   <div className="absolute top-5 left-5 z-20 bg-white/95 backdrop-blur px-3 py-1.5 rounded-full shadow-sm text-[10px] font-black text-blue-900 uppercase tracking-widest">
                     {listing.status}
@@ -155,7 +155,6 @@ const App = () => {
                       {listing.tag}
                     </div>
                   )}
-                  {/* HOVER ZOOM: transition-transform and scale classes */}
                   <img 
                     src={listing.image} 
                     alt={listing.address} 
@@ -185,17 +184,17 @@ const App = () => {
                       <p>{listing.sqft.toLocaleString()} <span className="text-[10px] text-gray-400 font-black uppercase">Sqft</span></p>
                     </div>
                   </div>
-                  <button className="w-full bg-gray-900 text-white py-4 rounded-2xl text-xs font-black tracking-widest hover:bg-blue-900 transition-colors uppercase">
+                  <a href="#contact" className="block w-full text-center bg-gray-900 text-white py-4 rounded-2xl text-xs font-black tracking-widest hover:bg-blue-900 transition-colors uppercase">
                     Request Information
-                  </button>
+                  </a>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        {/* OPERATIONS PORTAL */}
-        <section className="bg-slate-900 p-8 sm:p-12 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
+        {/* Portal Section */}
+        <section id="portal" className="bg-slate-900 p-8 sm:p-12 rounded-[3rem] text-white shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[100px] rounded-full"></div>
           <div className="mb-12 border-b border-slate-800 pb-6 relative z-10">
             <h2 className="text-2xl font-black tracking-tight">Operations Portal</h2>
@@ -244,30 +243,42 @@ const App = () => {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="bg-white border border-gray-100 p-10 sm:p-16 rounded-[3rem] grid grid-cols-1 md:grid-cols-2 gap-12 text-sm shadow-sm">
-          <div className="space-y-6">
-             <div className="flex gap-3 items-center">
-                <div className="w-12 h-12 bg-blue-900 rounded-2xl flex items-center justify-center text-white font-black text-xl">CB</div>
-                <div>
-                  <p className="font-black text-gray-900 text-lg leading-tight">Coldwell Banker Realty</p>
-                  <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-none">Global Luxury Trusted</p>
-                </div>
-             </div>
-             <div className="space-y-2 text-gray-500 font-medium">
-               <div className="flex items-center gap-2"><MapPin size={16} /> {jeanaContact.officeAddr}</div>
-               <div className="flex items-center gap-2"><Phone size={16} /> {jeanaContact.directPhone}</div>
-               <div className="flex items-center gap-2 text-blue-600 font-bold"><Mail size={16} /> {jeanaContact.email}</div>
-             </div>
+        {/* Contact Section (Footer) */}
+        <footer id="contact" className="bg-white border border-gray-100 p-10 sm:p-16 rounded-[3rem] shadow-sm">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+            <div className="space-y-6">
+               <div className="flex gap-3 items-center">
+                  <div className="w-12 h-12 bg-blue-900 rounded-2xl flex items-center justify-center text-white font-black text-xl">CB</div>
+                  <div>
+                    <p className="font-black text-gray-900 text-lg leading-tight">Coldwell Banker Realty</p>
+                    <p className="text-gray-400 text-[10px] font-bold uppercase tracking-widest leading-none">Global Luxury Trusted</p>
+                  </div>
+               </div>
+               <div className="space-y-4 text-gray-500 font-medium">
+                 <div className="flex items-center gap-3"><MapPin size={20} className="text-blue-900" /> {jeanaContact.officeAddr}</div>
+                 <div className="flex items-center gap-3"><Phone size={20} className="text-blue-900" /> {jeanaContact.directPhone}</div>
+                 <div className="flex items-center gap-3 text-blue-600 font-bold"><Mail size={20} className="text-blue-900" /> {jeanaContact.email}</div>
+               </div>
+            </div>
+
+            {/* Simple Inquiry Form UI */}
+            <div className="bg-gray-50 p-8 rounded-3xl border border-gray-100 space-y-4">
+              <h3 className="font-black text-gray-900 tracking-tight">Interested in a property?</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <input type="text" placeholder="Name" className="bg-white p-3 rounded-xl border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-900" />
+                <input type="email" placeholder="Email" className="bg-white p-3 rounded-xl border border-gray-200 text-sm outline-none focus:ring-2 focus:ring-blue-900" />
+              </div>
+              <textarea placeholder="Message" className="w-full bg-white p-3 rounded-xl border border-gray-200 text-sm h-24 outline-none focus:ring-2 focus:ring-blue-900"></textarea>
+              <button className="w-full bg-blue-900 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-black transition-colors">
+                Send Message <Send size={16} />
+              </button>
+            </div>
           </div>
-          <div className="flex flex-col justify-end text-xs space-y-4 md:text-right">
-             <p className="text-gray-400 font-bold tracking-tight leading-relaxed max-w-xs md:ml-auto uppercase">
-               Coldwell Banker and the Coldwell Banker logo are trademarks of Coldwell Banker Real Estate LLC. Independently owned and operated.
-             </p>
-             <div className="text-gray-300 flex md:justify-end gap-4 uppercase font-black tracking-widest text-[10px]">
-               <span>© {new Date().getFullYear()} JT Real Estate</span>
-               <span className="text-blue-700">License {jeanaContact.license}</span>
-             </div>
+
+          <div className="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase font-black tracking-widest text-gray-400">
+             <p>© {new Date().getFullYear()} {jeanaContact.name} Real Estate</p>
+             <p>License {jeanaContact.license} • Lakeland, Florida</p>
+             <p className="text-center md:text-right max-w-xs">Independently owned and operated. Equal Housing Opportunity.</p>
           </div>
         </footer>
       </main>

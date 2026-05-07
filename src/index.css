@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+/* 1. Global Base Styles */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  /* Using standard CSS variables provided by Tailwind v4 */
+  background-color: var(--color-gray-50);
+  color: var(--color-gray-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 2. Custom Scrollbar Logic */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--color-gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-gray-300);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-gray-400);
+}
+
+/* 3. Mobile Safari Height Fix */
+.min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
