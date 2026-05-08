@@ -32,7 +32,7 @@ const App = () => {
     },
     {
       id: 3,
-      price: "$295,000",
+      price: "$289,900",
       address: "4452 Hidden Pine Ct, Mulberry, FL",
       beds: 3, baths: 2, sqft: "1,636",
       tag: "Aerial Views",
